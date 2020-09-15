@@ -63,25 +63,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
                 ]
             }
         }
-    ],
-    "routing": {
-        "rules": [
-            {
-                "type": "field",
-                "outboundTag": "sockstor",
-                "domain": [
-                    "geosite:tor"
-                ]
-            },
-            {
-                "type": "field",
-                "outboundTag": "blocked",
-                "domain": [
-                    "geosite:category-ads-all"
-                ]
-            }
-        ]
-    }
+    ]
 }
 EOF
 
