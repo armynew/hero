@@ -5,7 +5,16 @@ mkdir /tmp/v2ray
 #curl -L -H "Cache-Control: no-cache" -o /tmp/v2ray/v2ray.zip https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip
 curl -L -H "Cache-Control: no-cache" -o /tmp/v2ray/v2ray.zip https://github.com/v2fly/v2ray-core/releases/download/v4.26.0/v2ray-linux-64.zip
 
+
+
 unzip /tmp/v2ray/v2ray.zip -d /tmp/v2ray
+
+#rm before install
+rm -rf /usr/local/bin/v2ray
+rm -rf /usr/local/bin/v2ctl
+
+#install new
+
 install -m 755 /tmp/v2ray/v2ray /usr/local/bin/v2ray
 install -m 755 /tmp/v2ray/v2ctl /usr/local/bin/v2ctl
 
@@ -38,7 +47,41 @@ cat << EOF > /usr/local/etc/v2ray/config.json
         {
             "protocol": "freedom"
         }
-    ]
+        {
+            "protocol": "blackhole",
+            "tag": "blocked"
+        },
+        {
+            "protocol": "socks",
+            "tag": "sockstor",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "port": 9050
+                    }
+                ]
+            }
+        }
+    ],
+    "routing": {
+        "rules": [
+            {
+                "type": "field",
+                "outboundTag": "sockstor",
+                "domain": [
+                    "geosite:tor"
+                ]
+            },
+            {
+                "type": "field",
+                "outboundTag": "blocked",
+                "domain": [
+                    "geosite:category-ads-all"
+                ]
+            }
+        ]
+    }
 }
 EOF
 
