@@ -1,5 +1,6 @@
 #!/bin/sh
-
+# V2Ray new configuration
+install -d /usr/local/etc/v2ray
 cat << EOF > /usr/local/etc/v2ray/config.json
 {
     "inbounds": [
@@ -44,5 +45,10 @@ cat << EOF > /usr/local/etc/v2ray/config.json
 }
 EOF
 
+
+#rm go 
+rm -rf /go
+
 # Run V2Ray
-/usr/local/bin/v2ray -config /usr/local/etc/v2ray/config.json
+#/usr/local/bin/v2ray -config /usr/local/etc/v2ray/config.json
+/usr/bin/v2ray -config /usr/local/etc/v2ray/config.json
